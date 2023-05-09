@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Signup</title>
+</head>
+<body>
+<header>
+    <nav>
+        <a href="/">Home</a>
+        <span th:if="${username}">
+                | <span class="username">Welcome, <span th:text="${username}"></span></span>
+            <form action="/logout" method="post" style="display:inline;">
+                    <input type="submit" value="Logout">
+                </form>
+            </span>
+        <span th:unless="${username}">
+                | <a href="/login">Login</a>
+                | <a href="/signup">Sign up</a>
+            </span>
+    </nav>
+</header>
+<h1>Sign Up!</h1>
+<form action="/signup" method="POST">
+    <label for="username">Username</label>
+    <input id="username" type="text" name="username" required>
+
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" required>
+
+    <label for="firstName">First Name</label>
+    <input id="firstName" name="firstName" type="text" required>
+
+    <label for="lastName">Last Name</label>
+    <input id="lastName" name="lastName" type="text" required>
+
+    <label for="dateOfBirth">Date of Birth</label>
+    <input id="dateOfBirth" name="dateOfBirth" type="date" required>
+
+    <label for="bio">Bio</label>
+    <textarea id="bio" name="bio" required></textarea>
+
+    <input type="submit" value="Sign Up">
+</form>
+</body>
+</html>

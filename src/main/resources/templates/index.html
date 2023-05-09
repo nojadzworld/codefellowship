@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CodeFellowship</title>
+</head>
+<body>
+<header>
+  <nav>
+    <a href="/">Home</a>
+    <span th:if="${username">
+      <span class="username">Hello, <span th:text="${username}"></span></span>
+      <form action="/logout" method="post" style="display:inline;">
+        <input type="submit" value="Logout">
+      </form>
+    </span>
+    <span th:unless="${username}">
+       <a href="/login">Login</a>
+       <a href="/signup">Sign up</a>
+    </span>
+  </nav>
+</header>
+<main>
+  <h1>Welcome to CodeFellowship!</h1>
+
+</main>
+</body>
+</html>
