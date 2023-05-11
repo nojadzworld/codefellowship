@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header>
+  <nav th:replace="fragments/navbar :: navbar"></nav>
+</header>
+<div th:replace="/fragments/error :: applicationUser-error"></div>
+<h1>My Profile</h1>
+
+<form action="/myprofile" th:method="POST" class="profile-info">
+  <input type="hidden" name="_method" value="PUT">
+  <input type="hidden" name="id" th:value="${user.id}">
+  <img src="https://via.placeholder.com/150" alt="Profile Picture">
+  <label for="username">Username</label>
+  <input type="text" id="username" name="username" th:value="${user.username}" required>
+  <label for="firstName">First Name</label>
+  <input type="text" id="firstName" name="firstName" th:value="${user.firstName}" required>
+
+  <label for="lastName">Last Name</label>
+  <input type="text" id="lastName" name="lastName" th:value="${user.lastName}" required>
+
+  <label for="dateOfBirth">Date of Birth</label>
+  <input type="date" id="dateOfBirth" name="dateOfBirth" th:value="${user.dateOfBirth}" required>
+
+  <label for="bio">Bio</label>
+  <textarea id="bio" name="bio" required th:text="${user.bio}"></textarea>
+
+  <input type="submit" value="Save Changes">
+</form>
+<div class="vertical-gap-2"></div>
+<h2>Create Post</h2>
+<form action="/createPost" method="POST">
+  <input type="hidden" name="id" th:value="${user.id}">
+  <label>Post Body</label>
+  <textarea name="body" required></textarea>
+  <input type="submit" value="Create Post">
+</form>
+<div class="vertical-gap-2">
+<h2>My Posts</h2>
+<div class="vertical-gap-2"></div>
+<article th:each="post : ${user.posts}">
+  <p class="date" th:text="${post.createdAt}"></p>
+  <div class="postcontent-container">
+    <p th:text="${post.body}"></p>
+  </div>
+</article>
+</div>
+</body>
+</html>
