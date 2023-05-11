@@ -5,23 +5,13 @@
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CodeFellowship</title>
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 <header>
-  <nav>
-    <a href="/">Home</a>
-    <span th:if="${username">
-      <span class="username">Hello, <span th:text="${username}"></span></span>
-      <form action="/logout" method="post" style="display:inline;">
-        <input type="submit" value="Logout">
-      </form>
-    </span>
-    <span th:unless="${username}">
-       <a href="/login">Login</a>
-       <a href="/signup">Sign up</a>
-    </span>
-  </nav>
+  <nav th:replace="fragments/navbar :: navbar"></nav>
 </header>
+  <div th:replace="/fragments/error :: applicationUser-error"></div>
 <main>
   <h1>Welcome to CodeFellowship!</h1>
 

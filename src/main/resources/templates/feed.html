@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feed</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header>
+  <nav th:replace="fragments/navbar :: navbar"></nav>
+</header>
+<div th:replace="/fragments/error :: applicationUser-error"></div>
+<h1>Your Feed</h1>
+
+<div th:if="${feedPosts.isEmpty()}">
+  <p>You are not following anyone yet. Explore <a href="/users">Users</a> to find people to follow.</p>
+</div>
+
+<div th:if="${!feedPosts.isEmpty()}" class="posts-container">
+  <div th:each="post : ${feedPosts}">
+    <article>
+      <h3><a th:href="@{/user/{id}(id=${post.getApplicationUser.id})}" th:text="${post.getApplicationUser.username}"></a></h3>
+      <p class="date" th:text="${post.createdAt}"></p>
+      <div class="postcontent-container">
+        <p th:text="${post.body}"></p>
+      </div>
+    </article>
+    <hr>
+  </div>
+</div>
+</body>
+</html>

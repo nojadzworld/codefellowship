@@ -5,24 +5,15 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <header>
-<nav>
-    <a href="/">Home</a>
-    <span th:if="${username}">
-                | <span class="username">Welcome, <span th:text="${username}"></span></span> | <form action="/logout" method="post" style="display:inline;">
-                    <input type="submit" value="Logout">
-                </form>
-            </span>
-    <span th:unless="${username}">
-                | <a href="/login">Login</a>
-                | <a href="/signup">Sign up</a>
-            </span>
-</nav>
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+
 </header>
 <body>
 <h1>Login</h1>
+<div th:replace="/fragments/error :: applicationUser-error"></div>
 <form action="/login" method="POST">
     <label>Username</label>
     <input type="text" name="username">

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header>
+  <nav th:replace="fragments/navbar :: navbar"></nav>
+</header>
+<div th:replace="/fragments/error :: applicationUser-error"></div>
+<h1>User profile</h1>
+<div class="profile-info">
+  <img src="https://via.placeholder.com/150" alt="Profile Picture">
+  <p><strong>Username:</strong> <span th:text="${user.username}"></span></p>
+  <p><strong>First Name:</strong> <span th:text="${user.firstName}"></span></p>
+  <p><strong>Last Name:</strong> <span th:text="${user.lastName}"></span></p>
+  <p><strong>Date of Birth:</strong> <span th:text="${user.dateOfBirth}"></span></p>
+  <p><strong>Bio:</strong></p>
+  <p th:text="${user.bio}"></p>
+</div>
+<form th:action="@{/follow/{id}(id=${user.id})}" method="POST">
+  <input type="hidden" name="_method" value="PUT">
+  <input type="submit" value="Follow">
+</form>
+<div class="vertical-gap-2"></div>
+<h2>User's Posts</h2>
+<article th:each="post : ${user.posts}">
+  <p class="date" th:text="${post.createdAt}"></p>
+  <div class="postcontent-container">
+    <p th:text="${post.body}"></p>
+  </div>
+</article>
+</body>
+</html>
