@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -27,6 +28,11 @@ public class WebSecurityConfig {
     }
 
     @Bean
+    public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
+        return new HiddenHttpMethodFilter();
+    }
+
+    @Bean
     protected SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
         http
                 .cors().disable()
@@ -34,15 +40,15 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/signup").permitAll()
-                        .requestMatchers("/css/**").permitAll()
+                        .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin()
                 .loginPage("/login").permitAll()
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/myprofile", true)
                 .and()
                 .logout()
-                .logoutSuccessUrl("/login")
+                .logoutSuccessUrl("/login?logout")
                 .and()
                 .getSharedObject(AuthenticationManagerBuilder.class)
                 .userDetailsService(userDetailsServiceImpl)

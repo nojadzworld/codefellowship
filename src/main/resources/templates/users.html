@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Users</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header>
+  <nav th:replace="fragments/navbar :: navbar"></nav>
+</header>
+<div th:replace="/fragments/error :: applicationUser-error"></div>
+<h1>All Users</h1>
+<div class="table-container">
+  <table>
+    <thead>
+    <tr>
+      <th>Username</th>
+      <th>Name</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}" th:unless="${user.id} == ${currentUser.id}">
+      <td><a th:href="@{'/user/' + ${user.id}}" th:text="${user.username}"></a></td>
+      <td th:text="${user.firstName} + ' ' + ${user.lastName}"></td>
+      <td>
+        <form th:action="@{/follow/{id}(id=${user.id})}" method="POST">
+          <input type="hidden" name="_method" value="PUT">
+          <input type="submit" value="Follow">
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

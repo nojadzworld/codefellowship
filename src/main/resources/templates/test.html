@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header>
+  <nav th:replace="fragments/navbar :: navbar"></nav>
+</header>
+<h1>Test Page (only viewable by logged-in users)</h1>
+<h3 th:if="${username != null}" th:text="${'Current user ' + username}"></h3>
+</body>
+</html>
